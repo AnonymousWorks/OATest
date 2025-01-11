@@ -1,0 +1,5 @@
+.idea
+test*.py
+tests
+debug.py
+*.info
