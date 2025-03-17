@@ -293,11 +293,13 @@ sys.path.append(r'./')
 from get_cov_trend import parse_info_file
 
 if __name__ == '__main__':
-    target_folder = '/tvm/'
+    target_folder = 'onnxruntime/core/optimizer'
     base_dir = "../res_cov"
-    ut_info_file = f"{base_dir}/sp_ut.info"
-    cov_nnsmith4k = f'{base_dir}/sp_NNSmith4k.info'
-    cov_MT = f"{base_dir}/sp_MT_combine_23.info"
+    ut_info_file = f"{base_dir}/sp_ORT_UT2.info"
+    cov_nnsmith2k = f'{base_dir}/sp_ORT_nnsmith2k.info'
+    cov_nnsmith4k = f'{base_dir}/sp_ORT_NNSmith4k.info'
+    cov_MT = f"{base_dir}/sp_ORT_OATest.info"
+    # cov_MT = f"{base_dir}/sp_ORT_ModelTailor_23.info"
     total_cov = {"lines": [], "branches": []}  # {lines: [], branches:[]}
 
     cov_data, _ = parse_info_file(cov_MT, target_folder)
@@ -313,7 +315,16 @@ if __name__ == '__main__':
     total_cov["branches"].append(set(cov_data["branches"]))
 
 
-    all_files = ["OATest", "Seed Graphs", "Documented Tests"]
+    all_files = ["OATest", "NNSmith4k", "UT"]
     for granularity in ['lines',  'branches']:  # 'functions',
         plot_vn(total_cov[granularity], all_files, granularity)
 
+
+
+print(f"unique branch:   {round((426)/7156*100, 2)}%")
+print(f"unique Line: {round((618)/11838*100, 2)}%")
+
+
+# UT vs NNSmith4k
+print(f"UT vs NNSmith4k ; unique branch:   {round((132+817-81-203)/7156*100, 2)}%")
+print(f"UT vs NNSmith4k;unique Line: {round((200+1350-114-208)/11838*100, 2)}%")

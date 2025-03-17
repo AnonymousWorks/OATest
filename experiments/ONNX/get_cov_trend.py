@@ -43,9 +43,11 @@ def parse_info_file(filename, target_folder):
                 block_number = int(branch_info[1])
                 branch_number = int(branch_info[2])
                 taken = branch_info[3]
-                source_total_data['branches'].add((current_file, line_number, block_number, branch_number))
+                # source_total_data['branches'].add((current_file, line_number, block_number, branch_number))
+                source_total_data['branches'].add((current_file, line_number))
                 if taken != '0' and taken != '-':
-                    coverage_data['branches'].add((current_file, line_number, block_number, branch_number))
+                    # coverage_data['branches'].add((current_file, line_number, block_number, branch_number))
+                    coverage_data['branches'].add((current_file, line_number))
     source_total_num = {k:len(v) for k, v in source_total_data.items()}
     print(source_total_num)
     print(f"Total coverage of {filename}:")
@@ -91,9 +93,12 @@ if __name__ == '__main__':
             # if info_file != f"/share_container/optfuzz/res/cov_cumulate/ORT/whitefox/sp_ORT_whitefox_23.info":
             #     continue
 
-            cov_data, _ = parse_info_file(info_file, target_folder)
+            cov_data, total_num = parse_info_file(info_file, target_folder)
             if len(cov_dict[sound_proj_name[proj]]) <= 24:
-                cov_dict[sound_proj_name[proj]].append([len(cov_data['lines']), len(cov_data['functions']), len(cov_data['branches'])])
+                # cov_dict[sound_proj_name[proj]].append([len(cov_data['lines']), len(cov_data['functions']), len(cov_data['branches'])])
+                cov_dict[sound_proj_name[proj]].append([len(cov_data['lines']) / total_num['lines'] * 100,
+                                                        len(cov_data['functions']) / total_num['functions'] * 100,
+                                                        len(cov_data['branches']) / total_num['branches'] * 100])
 
     cov_line_dict = {}
     cov_func_dict = {}
