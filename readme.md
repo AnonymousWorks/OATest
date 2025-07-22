@@ -37,7 +37,7 @@
 
   ### 3. Bug Details
 
-  OATest has been detected **56** previously unknown bugs, **42/24** of which have been confirmed/fixed by developers.
+  OATest has been detected **56** previously unknown bugs, **42/24** of which have been confirmed/fixed by developers. Below, we present the specifics of each bug detected by OATest!
 
   
 
